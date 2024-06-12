@@ -1,13 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit'
 import {userApi} from './services/userApi'
+import {catPhrasesApi} from './services/catPhrases'
 import { setupListeners } from '@reduxjs/toolkit/query'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      [userApi.reducerPath]: userApi.reducer
+      [userApi.reducerPath]: userApi.reducer,
+      [catPhrasesApi.reducerPath]: catPhrasesApi.reducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(userApi.middleware),
+    middleware: (getDefaultMiddleware) => 
+      getDefaultMiddleware()
+        .concat(catPhrasesApi.middleware)
+        .concat(userApi.middleware),
   })
 }
 
